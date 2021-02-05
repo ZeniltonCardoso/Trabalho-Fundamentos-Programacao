@@ -2,109 +2,161 @@ import javax.swing.JOptionPane;
 
 public class Trabalho {
 
-	@SuppressWarnings("unused")
 	public static void main(String[] args) {
-    		int num, numP, contador, conta, num22, divisor, media, fat, menor, resultado, numeroAtual, menorNumero;
-    
-    		boolean isPrimo;
-    		String entrada;
-    		int[] numeros20 = new int[2];
-    		contador = 1;
-    		numP = 0;
-    		conta = 0;
-    		num22 = 0;
-    		isPrimo = true;
-    		divisor = 0;
-    		fat = 1;
-    		media = 0;
-    		resultado = 0;
-    		numeroAtual = 0;
-    		menorNumero = 0;
-    
-    		// Le os 20 numeross
-    		for (int x = 0; x < 2; x++) {
-    
-    			// Entrada de um numero que o usuario digitar
-    			entrada = JOptionPane.showInputDialog("Informe um numero");
-    			num = Integer.parseInt(entrada);
-    
-    			// Verifica se o numero primo e menor que 2
-    			if (num < 2) {
-    				numP++;
-    				System.out.println("O número " + num + " é Primo.");
-    			}
-    
-    			// Verifica se o numero digitado e primo ou não
-    			for (int i = 2; i <= num; i++) {
-    				if (((num % i) == 0) && (i != num)) {
-    					isPrimo = false;
-    					divisor = i;
-    					break;
-    				}
-    			}
-    
-    			if (isPrimo) {
-    				numP++;
-    				System.out.println("O número " + num + " é Primo.");
-    			} else {
-    				System.out.println("O número " + num + " não é Primo.");
-    			}
-    
-    			// Diz quantas vezes o numero 22 foi digitado
-    			if (num == 22) {
-    				num22++;
-    			}
-    
-    			// Diz se o numero digitado e multiplo de 5 ou não
-    			if (num % 5 == 0) {
-    				System.out.println("O número é multiplo de 5");
-    			} else {
-    				System.out.println("O número " + num + " não é multiplo de 5");
-    			}
-    
-    			// Diz se o numero e par ou não
-    			if (num % 2 == 0) {
-    				System.out.println("O número " + num + " é par.");
-    			} else {
-    				System.out.println("O número " + num + " é ímpar.");
-    			}
-    
-    			// Array dos 20 numeros
-    			numeros20[x] = num;
-    
-    			// Ve o fatorial do menor numero digitado.
-    			numeroAtual = num;
-    			fat = 1;
-    			if (menorNumero == 0 || numeroAtual < menorNumero) {
-    
-    				menorNumero = numeroAtual;
-    
-    			}
-    
-    			System.out.println("");
-    			System.out.println("_____________________________________________________________");
-    			System.out.println("");
-    
-    		}
-    
-    		// Ve a media dos numeros digitados
-    		for (int i = 0; i < numeros20.length; i++)
-    			media += numeros20[i];
-    
-    		float total = (float) media / numeros20.length;
-    
-    		System.out.println("A média aritmética é: " + total);
-    		for (int z = 1; z <= menorNumero; z++) {
-    
-    			fat *= z;
-    			System.out.println("O fatorial de " + menorNumero + " é: " + fat);
-    
-    		}
-    		
-    		System.out.println("O número 22 foi digitado " + num22 + " vezes.");
-    
-    		System.out.println("Foram informados " + numP + " números primos.");
-    
-    	}
+		@SuppressWarnings("unused")
+		int numero, opcao, numeroAtual, temp, contador = 1, divisor, numeroPrimo = 0, maior = 0, posMaior = 0;
+		boolean isPrimo = false;
+		String numerosOrdenados = "", numerosDecrescente = "", entra = "";
+		int vetor[] = new int[19];
+		
+		for (int x = 0; x < vetor.length; x++) {
+			entra = JOptionPane.showInputDialog("Informe um Numero ");
+			numero = Integer.parseInt(entra);
+			vetor[x] = numero;
+			
+			// Verifica se o numero primo e menor que 2
+			if (numero < 2) {
+				numeroPrimo++;
+			}
+
+			// Verifica se o numero digitado e primo ou não
+			for (int i = 2; i <= numero; i++) {
+				if (((numero % i) == 0) && (i != numero)) {
+					isPrimo = true;
+					divisor = i;
+					break;
+				}
+				if (isPrimo) {
+					numeroPrimo++;
+					isPrimo = false;
+				} 
+			}
+
+	
+		}
+	     
+		do {
+		
+			int menorNumero = 0, fat = 1;
+			numero = Integer.parseInt(entra);
+			numeroAtual = numero;
+			
+			// Verifica se o numero e menor q o outro 
+			if (menorNumero == 0 || numeroAtual < menorNumero) {
+				menorNumero = numeroAtual;
+			}
+		
+			entra = JOptionPane.showInputDialog(
+					"\n\t\tMENU"
+					+ "\n\n\t1.MOSTRAR"
+					+ "\n\t2. INVERTER"
+					+ "\n\t3. ORDENAR CRESCENTE"
+					+ "\n\t4. ORDENAR DECRESCENTE"
+					+ "\n\t5. FATORIAL DO MENOR"
+					+ "\n\t6. POSIÇÃO DO MAIOR"
+					+ "\n\t7. QTIDADE PRIMOS"
+					+ "\n\n\t9. VAZAR");
+			
+			opcao = Integer.parseInt(entra);
+		switch (opcao) {
+		case 1:
+			//Imprime o array
+			System.out.print("Este é o array original e completo: ");
+			for(int i = 0; i < vetor.length; i++) {
+				if(i < 21) {
+					System.out.print(vetor[i] + "-");
+					} else if (i == 1) {
+						System.out.println(vetor[i]);
+					}
+				}
+			break;
+		case 2:
+			//Reorganiza o array invertendo as posições
+			for(int i = 0; i <= 1; i++) {
+				int aux = vetor[i];
+				vetor[i] = vetor[vetor.length - 1 - i];
+				vetor[vetor.length - 1 - i] = aux;
+			}
+			System.out.print("Este é o array com posições invertidas e completo: ");
+			for(int i = 0; i < vetor.length; i++) {
+				if(i < 21) {
+					System.out.print(vetor[i] + "-");
+					}else if(i == 1) {
+						System.out.println(vetor[i]);
+					}
+				}
+			break;
+		case 3:
+			// Ordenar Crescente
+	        do{
+	            for (int i = 0; i < vetor.length -1; i++){
+	                if (vetor[i] > vetor [i+1]){
+	                    temp = vetor[i];
+	                    vetor[i] = vetor[i+1];
+	                    vetor[i+1] = temp;
+	                }
+	            }
+	            contador++;
+	        } while (contador < vetor.length);
+	        
+	        // exibe os números na tela
+	        for (int n : vetor) {
+	            numerosOrdenados += n+"-";
+	        }
+	        System.out.println(numerosOrdenados);
+	        contador = 1;
+			break;
+		case 4:
+			// Ordenar Decrescente
+			do {
+			for (int i = 1; i < vetor.length; i++) {
+			    for (int j = 0; j < i; j++) {
+			        if (vetor[i] > vetor[j]) {
+			            temp = vetor[i];
+			            vetor[i] = vetor[j];
+			            vetor[j] = temp;
+			        }
+			    }
+			}
+	        contador++;
+			} while (contador < vetor.length);
+			
+			// exibe os números na tela
+	        for (int n : vetor) {
+	        	numerosDecrescente += n+"-";
+	        }
+	        System.out.println(numerosDecrescente);
+	        contador = 1;
+			break;
+		case 5:
+			// Ve o fatorial do menor numero
+			for (int z = 1; z <= menorNumero; z++) {
+				fat *= z;
+				System.out.println("O fatorial de " + menorNumero + " é: " + fat);
+			}
+			break;
+		case 6:
+			// Posição do maior numero no array
+			for (int i = 0; i < vetor.length; i++) {
+				if (i == 0) {
+					maior = vetor[i];
+					posMaior = i;
+				} else if (vetor[i] > maior) {
+					maior = vetor[i];
+					posMaior = i;
+				}
+			}
+			System.out.println("A posição do maior numero é = "+posMaior);
+			break;
+		case 7:
+			System.out.println("Este é o total de números primos no array: "+numeroPrimo);
+			break;
+		default:
+			System.out.println("Digite um numero");
+			break;
+		}
+		} while (opcao != 9);
+		System.out.println("BOA NOITE - OBRIGADO POR USAR O SISMIM - SISTEMA FEITO POR MIM");
+	}
 
 }
